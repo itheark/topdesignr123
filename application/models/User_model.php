@@ -1,0 +1,263 @@
+<?php
+/**
+* 
+*/
+class User_model extends CI_Model
+{
+	
+	function user_model()
+	{
+		# code...
+		parent:: __construct();
+		$this->load->helper('date');
+	}
+
+	function generate_salt()
+	{
+		$salt='';
+		$chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!?=/&+,.";
+
+		for($i=0;$i<8;$i++)
+		{
+			$c= mt_rand(0,strlen($chars)-1);
+			$salt.=$chars{$c};
+		}
+
+		return $salt;
+	}
+
+	function encrypt($salt,$pwd)
+	{
+		return sha1(md5($pwd).$salt);
+
+	}
+
+	function login_user($email,$pwd)
+	{
+		$this->load->library('session');
+		$this->load->database();
+		$nquery = $this->db->get_where('user',array('email' => $email ));
+		if($nquery->num_rows() == 1)
+		{
+			$rows = $nquery->row();
+
+				$salt = $rows->salt;
+				$enc_pass = $rows->pwd;
+				if($this->encrypt($salt,$pwd)==$enc_pass)
+				{
+
+				$logdata = array(
+					'user_id'=>$rows->user_id,
+					'uname' => $rows->uname,
+					'image' => $rows->image,
+					'email' => $rows->email,
+					'role' => $rows->role,
+					'image'=> $rows->image,
+					'logged_in' => TRUE,);
+
+				$this->session->set_userdata($logdata);
+				return TRUE;
+				}
+		}
+
+		return FALSE;
+
+	}
+
+	function new_user($salt,$new_pwd)
+	{
+		$data = array( 'uname' => $this->input->post('uname'),
+						'email' => $this->input->post('email'),
+						'image' => 'default.png',
+						'pwd' => $new_pwd,
+						'salt' => $salt,
+						'role' =>'user',
+						);
+		$this->db->insert('user',$data);
+		$this->db->select('user_id');
+		$this->db->from('user');
+		$this->db->where(array('uname'=> $this->input->post('uname')));
+		$id = $this->db->get();
+		return $id->row_array();
+
+	}
+	function upload_image($file)
+	{
+
+		$this->load->database();
+		$data= array('image' => $file['file_name']);
+		$this->db->where('user_id',$this->session->userdata('user_id'));
+		$this->db->update('user',$data);
+		$logdata = array('image' => $file['file_name']);
+		$this->session->set_userdata($logdata);
+	
+
+	}
+
+	function profile($id=0)
+
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('user');
+		$this->db->where(array('user_id' =>$id,));
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+	function update_profile($id=0)
+	{
+		$this->load->database();
+		$data = array( 'languages' => $this->input->post('languages'),
+						'areas' => $this->input->post('areas'),
+						'location' => $this->input->post('location'),
+						'batch' => $this->input->post('batch'),
+						'grad' => $this->input->post('grad'),
+						);
+		$this->db->where('user_id',$id);
+		$this->db->update('user',$data);
+
+	}
+	function news()
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('news');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+	function asked($id=0)
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('topic');
+		$this->db->where(array('topic_by' =>$id,));
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function answered($id=0)
+	{
+
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('post');
+		$this->db->where(array('post_by' =>$id,));
+		$this->db->join('topic','topic.topic_id = post.post_topic','inner');
+		$query = $this->db->get();
+		return $query->result();	
+	}
+
+	function get_topic($id=0)
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('topic');
+		$this->db->where(array('topic_id' =>$id,));
+		$this->db->join('user','user.user_id = topic.topic_by','inner');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+	function get_tags($id=0)
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('topic_tags');
+		$this->db->where(array('topic_id' =>$id,));
+		$this->db->join('tags','tags.tag_id = topic_tags.tag_id','inner');
+		$query = $this->db->get();
+		return $query->result();
+
+
+	}
+
+	function new_tag($tag=0)
+	{
+		$this->load->database();
+		$data = array('tag_name' => $tag);
+		$query = $this->db->get_where('tags',array('tag_name' => $tag ));
+		if($query->num_rows()== 0)
+		{
+		$this->db->insert('tags',$data);
+		}
+		$this->db->select('tag_id');
+		$this->db->from('tags');
+		$this->db->where(array('tag_name'=> $tag));
+		$id = $this->db->get();
+		return $id->row_array();
+	}
+
+
+	function new_topic()
+	{
+		$this->load->database();
+		$topic_date = date('d-m-Y H:i:s');
+		$data = array( 'topic_sub' => $this->input->post('sub'),
+						'topic_content' => $this->input->post('cont'),
+						'topic_date' => date('Y-m-d H:i:s', strtotime($topic_date)),
+						'topic_by' => $this->session->userdata('user_id'),
+						);
+		$this->db->insert('topic',$data);
+
+		$this->db->select('topic_id');
+		$this->db->from('topic');
+		$this->db->where(array('topic_sub'=> $this->input->post('sub'),));
+		$id = $this->db->get();
+		return $id->row_array();
+	}
+
+	function topic_tags($id1=0,$id2=0)
+	{
+		$this->load->database();
+		$data = array('topic_id' => $id1,
+					  'tag_id' => $id2);
+		$this->db->insert('topic_tags',$data);
+
+	}
+
+
+	function answer($id=0)
+	{
+		$this->load->database();
+		$this->db->where('topic_id', $id);
+		$this->db->set('views', 'views+1', FALSE);
+		$this->db->update('topic');
+		$this->db->select('*');
+		$this->db->from('post');
+		$this->db->where(array('post_topic' =>$id,));
+		$this->db->join('user','user.user_id = post.post_by','inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function new_answer($id=0)
+	{
+		$this->load->database();
+		$post_date = date('d-m-Y H:i:s');
+		$data = array( 'post_content' => $this->input->post('post_cont'),
+						'post_date' =>  date('Y-m-d H:i:s', strtotime($post_date)),
+						'post_by' => $this->session->userdata('user_id'),
+						'post_topic'=>$id);
+		$this->db->insert('post',$data);
+	}
+
+	function getall()
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('topic');
+		$this->db->join('user','user.user_id = topic.topic_by','inner');
+		$this->db->order_by('views',"desc");
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+}
+
+
+?>
