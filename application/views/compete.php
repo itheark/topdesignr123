@@ -60,6 +60,16 @@ $(document).ready(function(){
                         </li>
                         <li class="active"><a href="<?php echo site_url('main/compete')?>">Compete</a>
                         </li>                         
+                        <?php if($this->session->userdata('logged_in')){?> 
+                        <li class="dropdown"><a href="blog.html"><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="<?php echo site_url('main/profile') ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
+                                <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
+                              
+                            </ul>
+                        </li>  
+                        <?php }?>
                        <!-- <li><a href="shortcodes.html ">Shortcodes</a></li> -->                   
                     </ul>
                 </div>

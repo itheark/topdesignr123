@@ -177,6 +177,13 @@ class Main extends CI_Controller {
 
     }
 
+    function profile()
+    {
+        $this->load->view('profile');
+
+    }
+
+
 
 }
 ?>
