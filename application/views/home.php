@@ -53,7 +53,7 @@
                             <ul role="menu" class="sub-menu">
                                 <li><a href="<?php echo base_url();?>/profile.html"><i class="fa fa-user"></i>    Profile</a></li>
                                 <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
-                                <li><a href="<?php echo base_url();?>/index.html"><i class="fa fa-sign-out"></i>    Log out</a></li>
+                                <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
                               
                             </ul>
                         </li>

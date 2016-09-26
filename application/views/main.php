@@ -37,17 +37,17 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="<?php echo site_url('main/home') ?>">
                     	<h1><img src="<?php echo base_url();?>/images/logo.png" alt="logo"></h1>
                     </a>
                     
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="index.html">Home</a></li>                 
-                        <li><a href="portfolio.html">Explore</a>
+                        <li class="active"><a href="<?php echo site_url('main/home') ?>">Home</a></li>                 
+                        <li><a href="<?php echo site_url('main/explore') ?>">Explore</a>
                         </li>
-                        <li><a href="blog.html">Compete</a>
+                        <li><a href="<?php echo site_url('main/compete') ?>">Compete</a>
                         </li>                         
                        <!-- <li><a href="shortcodes.html ">Shortcodes</a></li> -->                   
                     </ul>

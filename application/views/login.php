@@ -37,7 +37,7 @@
     
   <body>
  
-   <a href="index.html">
+   <a href="<?php echo site_url('main/home') ?>">
 <h1><img class="mainlogo" src="<?php echo base_url();?>/images/logo.png" alt="logo"></h1></a>
        
       <div class="container">

@@ -164,6 +164,19 @@ class Main extends CI_Controller {
         $this->load->view('compete');
     }
 
+    function logout()
+    {
+        $data = array(
+            'user_id'=>'',
+            'uname' => '',
+            'email' => '',
+            'logged_in' => FALSE,);
+        $this->session->unset_userdata($data);
+        $this->session->sess_destroy();
+        redirect('main/home');
+
+    }
+
 
 }
 ?>
