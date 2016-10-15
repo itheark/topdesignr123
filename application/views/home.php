@@ -52,6 +52,7 @@
                          <li class="dropdown"><a href="blog.html"><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="<?php echo site_url('main/profile') ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                <li><a href="<?php echo site_url('main/post_upload') ?>"><i class="fa fa-upload "></i> Upload</a></li>
                                 <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
                                 <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
                               
@@ -94,22 +95,30 @@
         <div class="container">
             <div class="row">
                 <div class="masonery_area">
+                    <?php foreach ($post as $row){?>
                     <div class="col-md-3 col-sm-4">
                         <div class="single-blog two-column">
                             <div class="post-thumb">
-                                <a href="exploredetails.html"><img src="<?php echo base_url();?>/images/blog/masonary/y.jpg" class="img-responsive" alt=""></a>
+                                <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><img  src="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" class="img-responsive" alt=""></a>
                                 <div class="post-overlay">
-                                    <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
+                                    <span class="uppercase"><a href="#"><?php $date= strtotime($row->post_date); echo date('d',$date);?><br><small><?php echo date('M',$date);?></small></a></span>
                                 </div>
                             </div>
                             <div class="post-content overflow">
                                 <ul class="nav nav-justified post-nav">
                                     <li><a href="#"><i class="fa fa-tag"></i>Creative</a></li>
-                                </ul>
-                                <h2 class="post-title bold"><a href="exploredetails.html">Urban Work Wear Design</a></h2>
-                                <h3 class="post-author"><a href="#">Posted by UserXyz</a></h3>
-                                <p>Duis autem vel eum iriure dolor in hendrerit in blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                <a href="#" class="read-more">View More</a>
+                                </ul> 
+                                <h2 class="post-title bold" style="height :45px"><a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><?php $string = strip_tags($row->post_title);
+                                if (strlen($string) > 35) {
+                                $stringCut = substr($string, 0, 35);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></a></h2>
+
+                                <h3 class="post-author"><a href="#">Posted by <?php echo $row->uname?></a></h3>
+                                <p style="height :80px"><?php $string = strip_tags($row->post_des);
+                                if (strlen($string) > 140) {
+                                $stringCut = substr($string, 0, 140);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></p>
+                                <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>" class="read-more">View More</a>
                                 <div class="post-bottom overflow">
                                     <ul class="nav nav-justified post-nav">
                                         <li><a href="#"><i class="fa fa-heart"></i>32 Likes</a></li>
@@ -119,7 +128,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-4">
+                    <?php }?>
+                    <!-- <div class="col-md-3 col-sm-4">
                         <div class="single-blog two-column">
                             <div class="post-thumb">
                                  <a href="exploredetails.html"><img src="<?php echo base_url();?>/images/blog/masonary/y.jpg" class="img-responsive" alt=""></a>
@@ -393,8 +403,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                  <div class="portfolio-pagination">
+                </div> -->
+                  <!-- <div class="portfolio-pagination">
                     <ul class="pagination">
                       <li><a href="#">left</a></li>
                       <li><a href="#">1</a></li>
@@ -408,7 +418,7 @@
                       <li><a href="#">9</a></li>
                       <li><a href="#">right</a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>

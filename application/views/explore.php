@@ -53,6 +53,7 @@
                         <li class="dropdown"><a href="blog.html"><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="<?php echo site_url('main/profile') ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                <li><a href="<?php echo site_url('main/post_upload') ?>"><i class="fa fa-upload "></i> Upload</a></li>
                                 <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
                                 <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
                               
@@ -454,11 +455,11 @@
     <!--/#footer-->
 
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
-    <script type="text/javascript" src="js/lightbox.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>    
+    <script type="text/javascript" src="<?php echo base_url();?>/js/jquery.js"></script>
+    <script type="text/javascript" src=<"?php echo base_url();?>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>/js/wow.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>/js/main.js"></script>    
 </body>
 </html>

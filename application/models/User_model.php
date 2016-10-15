@@ -81,26 +81,93 @@ class User_model extends CI_Model
 		return $id->row_array();
 
 	}
-	function upload_image($file)
+	function new_post()
 	{
-
 		$this->load->database();
-		$data= array('image' => $file['file_name']);
-		$this->db->where('user_id',$this->session->userdata('user_id'));
-		$this->db->update('user',$data);
-		$logdata = array('image' => $file['file_name']);
-		$this->session->set_userdata($logdata);
-	
+		$post_date = date('d-m-Y H:i:s');
+		$data = array( 'post_des' => $this->input->post('post_des'),
+						'post_image' => '',
+						'post_title' => $this->input->post('post_title'),
+						'post_by' => $this->session->userdata('user_id'),
+						'post_date' =>  date('Y-m-d H:i:s', strtotime($post_date)),);
+		$this->db->insert('post',$data);
+		$id =$this->db->insert_id();
+		/*$this->db->select('post_id');
+		$this->db->from('post');
+		$this->db->where(array('post_des'=> $this->input->post('post_des'),));
+		$id = $this->db->get()->row()->post_id;*/
+
+		return $id;
+		
+	}
+
+	function get_userid($name)
+	{
+		$this->load->database();
+		$this->db->select('user_id');
+		$this->db->from('user');
+		$this->db->where(array('uname'=> $name));
+		$id = $this->db->get();
+		return $id->row_array();
 
 	}
 
-	function profile($id=0)
+	function get_uname($id)
+	{
+		$this->load->database();
+		$this->db->select('uname');
+		$this->db->from('user');
+		$this->db->where(array('user_id'=> $id));
+		$id = $this->db->get();
+		return $id->row_array();
+	}
+	
+	function add_file($file,$id)
+	{
+		$this->load->database();
+		$data = array('post_image' =>$file['file_name']);
+		$this->db->where('post_id',$id);
+		$this->db->update('post',$data);
+	}
+
+	function delete_post($id)
+	{
+		$this->db->where('post_id', $id);
+   		$this->db->delete('post'); 
+	}
+	
+	function get_post()
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('post');
+		$this->db->join('user','user.user_id = post.post_by','inner');
+		$this->db->order_by('post_date',"desc");
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+	function post_details($id)
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('post');
+		$this->db->join('user','user.user_id = post.post_by','inner');
+		$this->db->where(array('post_id' =>$id,));
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+
+	function profile($id)
 
 	{
 		$this->load->database();
 		$this->db->select('*');
 		$this->db->from('user');
-		$this->db->where(array('user_id' =>$id,));
+		$this->db->where(array('uname' =>$id,));
 		$query = $this->db->get();
 		return $query->result();
 
@@ -118,6 +185,25 @@ class User_model extends CI_Model
 		$this->db->update('user',$data);
 
 	}
+
+	function follow($var)
+	{
+		$this->load->database();
+		$data = array( 'user_id'=>$this->session->userdata('user_id'),
+						'followee_id'=>$var
+						);
+		$this->db->insert('follow',$data);
+	}
+	function unfollow($var)
+	{
+		$this->load->database();
+		$this->db->where(array('user_id'=>$this->session->userdata('user_id'),
+						'followee_id'=>$var));
+   		$this->db->delete('follow'); 
+	}
+
+
+
 	function news()
 	{
 		$this->load->database();

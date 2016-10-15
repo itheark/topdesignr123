@@ -64,6 +64,7 @@ $(document).ready(function(){
                         <li class="dropdown"><a href="blog.html"><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="<?php echo site_url('main/profile') ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                <li><a href="<?php echo site_url('main/post_upload') ?>"><i class="fa fa-upload "></i> Upload</a></li>
                                 <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
                                 <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
                               
@@ -153,7 +154,7 @@ $(document).ready(function(){
                                    </div>
                                 </div>
                                 <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="blogdetails.html">Urban Work Wear Design</a></h2>
+                                    <h2 class="post-title bold"><a href="<?php echo site_url('main/competedetails') ?>">Urban Work Wear Design</a></h2>
                                     <h3 class="post-author"><a href="#">By ABC Company</a></h3>
                                     <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
                                     <a href="#" class="read-more">View More</a>
