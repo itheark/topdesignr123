@@ -37,7 +37,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="<?php echo site_url('main/home')?>">
                     	<h1><img src="<?php echo base_url();?>/images/logo.png" alt="logo"></h1>
                     </a>
                     
@@ -49,9 +49,9 @@
                         </li>
                         <li ><a href="<?php echo site_url('main/compete') ?>">Compete</a>
                         </li> 
-                         <li class="dropdown"><a href="blog.html"><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
+                         <li class="dropdown"><a href=""><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="<?php echo site_url('main/profile') ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                <li><a href="<?php echo site_url('main/profile/'.$this->session->userdata('uname')) ?>"><i class="fa fa-user"></i>    Profile</a></li>
                                 <li><a href="<?php echo site_url('main/post_upload') ?>"><i class="fa fa-upload "></i> Upload</a></li>
                                 <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
                                 <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
@@ -99,7 +99,7 @@
                     <div class="col-md-3 col-sm-4">
                         <div class="single-blog two-column">
                             <div class="post-thumb">
-                                <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><img  src="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" class="img-responsive" alt=""></a>
+                                <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><img style="margin: 0 auto; align:center;" src="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" class="img-responsive" alt=""></a>
                                 <div class="post-overlay">
                                     <span class="uppercase"><a href="#"><?php $date= strtotime($row->post_date); echo date('d',$date);?><br><small><?php echo date('M',$date);?></small></a></span>
                                 </div>

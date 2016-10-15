@@ -55,13 +55,24 @@ $(document).ready(function(){
                     </a>
                     
                 </div>
-                <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="index.html">Home</a></li>                 
-                        <li><a href="portfolio.html">Explore</a>
+                        <li ><a href="<?php echo site_url('main/home')?>">Home</a></li>                 
+                        <li><a href="<?php echo site_url('main/explore')?>">Explore</a>
                         </li>
-                        <li><a href="blog.html">Compete</a>
+                        <li class="active"><a href="<?php echo site_url('main/compete')?>">Compete</a>
                         </li>                         
+                        <?php if($this->session->userdata('logged_in')){?> 
+                        <li class="dropdown"><a ><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="<?php echo site_url('main/profile/'.$this->session->userdata('uname')) ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                <li><a href="<?php echo site_url('main/post_upload') ?>"><i class="fa fa-upload "></i> Upload</a></li>
+                                <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
+                                <li><a href="<?php echo site_url('main/logout') ?>"><i class="fa fa-sign-out"></i>    Log out</a></li>
+                              
+                            </ul>
+                        </li>  
+                        <?php }?>
                        <!-- <li><a href="shortcodes.html ">Shortcodes</a></li> -->                   
                     </ul>
                 </div>

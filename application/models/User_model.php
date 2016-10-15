@@ -142,6 +142,8 @@ class User_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('post');
 		$this->db->join('user','user.user_id = post.post_by','inner');
+		$this->db->join('follow','follow.followee_id = post.post_by','inner');
+		$this->db->where(array('follow.user_id'=>$this->session->userdata('user_id'),));
 		$this->db->order_by('post_date',"desc");
 		$query = $this->db->get();
 		return $query->result();
@@ -155,6 +157,18 @@ class User_model extends CI_Model
 		$this->db->from('post');
 		$this->db->join('user','user.user_id = post.post_by','inner');
 		$this->db->where(array('post_id' =>$id,));
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+	function explore()
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('post');
+		$this->db->join('user','user.user_id = post.post_by','inner');
+		$this->db->where('post.post_by != ',$this->session->userdata('user_id'),FALSE);
+		$this->db->order_by('post_date',"desc");
 		$query = $this->db->get();
 		return $query->result();
 

@@ -161,8 +161,14 @@ class Main extends CI_Controller {
     }
 
     function explore(){
+          if($this->session->userdata('logged_in')){
+            $data['post']= $this->user_model->explore();
+            $this->load->view('explorenew',$data);
+        }else{
 
-        $this->load->view('explore');
+            $this->load->view('explore');
+        }  
+        
     } 
     function exploredetails($id=0){
         $data['post']= $this->user_model->post_details($id);
@@ -192,7 +198,7 @@ class Main extends CI_Controller {
 
 function profile($name='')
 {
-
+    if($this->session->userdata('logged_in')){
    $data['user'] = $this->user_model->profile($name);
 
                     $user=$this->user_model->get_userid($name);
@@ -209,6 +215,11 @@ function profile($name='')
                         $data['following']= FALSE;
                     }    
     $this->load->view('profile',$data);
+}
+else
+{
+    redirect('main/login');
+}
 
 }
 function follow($id)
