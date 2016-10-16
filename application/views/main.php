@@ -71,7 +71,7 @@
                 <div class="main-slider">
                     <div class="slide-text">
                         <h1>Connecting the  world of fashion</h1>
-                        <p>TopDesignr provides a fashion technology platform for you to <br> Design, Discover and Compete .</p>
+                        <p>TopDesignr provides a fashion technology platform for you to Design, Discover and Compete .</p>
                         <a href="<?php echo site_url('main/signup') ?>" class="btn btn-common">SIGN UP</a>
                          <a href="<?php echo site_url('main/login') ?>" class="btn btn-common">LOG IN</a>
                     </div>

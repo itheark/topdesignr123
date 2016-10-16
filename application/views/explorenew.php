@@ -117,7 +117,7 @@
                                 <div class="portfolio-view">
                                     
                                     <ul class="nav nav-pills">
-                                        <li><a href="exploredetails.html"><i class="fa fa-link"></i></a></li>
+                                        <li><a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><i class="fa fa-link"></i></a></li>
                                         
                                         <li><a href="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
                                          
@@ -126,10 +126,10 @@
                                 </div>
                             </div>
                             <div class="portfolio-info ">
-                                <h2><?php $string = strip_tags($row->post_title);
+                                <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><h2><?php $string = strip_tags($row->post_title);
                                 if (strlen($string) > 35) {
                                 $stringCut = substr($string, 0, 35);
-                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></h2>
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></h2></a>
                             </div>
                         </div>
                     </div>

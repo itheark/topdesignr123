@@ -355,7 +355,7 @@
 
 .search{
   position: absolute;
-  top: 20px;
+  top: 35px;
   right: 0;
   z-index: 1;
 }
@@ -365,12 +365,12 @@
   cursor: pointer;
   position: absolute;
   right: 10px;
-  top: 2px;
+  top: -12px;
 }
 
 .field-toggle{
   position: relative;
-  top: 30px;
+  top: 25px;
   right: 15px;
   display: none;
   height: 50px;
@@ -384,7 +384,7 @@
   font-weight: 300;
   outline: none;
   border: 1px solid #00aeef;
-  margin-top: 20px;
+  margin-top: 15px;
   border-radius: 4px;
 }
 

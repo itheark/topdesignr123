@@ -74,14 +74,14 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="<?php echo site_url('main/home')?>">Home</a></li>                 
+                            <li><a href="<?php echo site_url('main/home')?>">Home</a></li>                 
                             <li><a href="<?php echo site_url('main/explore')?>">Explore</a>
                             </li>
                             <li ><a href="<?php echo site_url('main/compete') ?>">Compete</a>
                             </li> 
                              <li class="dropdown"><a href=""><i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="<?php echo site_url('main/profile') ?>"><i class="fa fa-user"></i>    Profile</a></li>
+                                    <li><a href="<?php echo site_url('main/profile/'.$this->session->userdata('uname')) ?>"><i class="fa fa-user"></i>    Profile</a></li>
                                     <li><a href="<?php echo site_url('main/post_upload') ?>"><i class="fa fa-upload "></i> Upload</a></li>
                                     <li><a href=""><i class="fa fa-gear"></i>    Settings</a></li>
 
@@ -208,128 +208,79 @@
                 <div class="row">
                     <div class="timeline-blog overflow padding-top">
                         <div class="timeline-date text-center">
-                            <a href="#" class="btn btn-common uppercase">November 2013</a>
+                            <a  class="btn btn-common uppercase">Timeline</a>
                         </div>
                         <div class="timeline-divider overflow padding-bottom">
+                            <?php $count=0; foreach ($post as $row){ if($count%2==0){?>
                             <div class="col-sm-6 padding-right arrow-right wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
                                 <div class="single-blog timeline">
                                     <div class="single-blog-wrapper">
                                         <div class="post-thumb">
-                                            <img src="<?php echo base_url();?>/images/blog/timeline/1.jpg" class="img-responsive" alt="">
+                                            <img style ="max-height:261px;max-width:269px;  margin: 0 auto; align:center;" src="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" class="img-responsive" alt="">
                                             <div class="post-overlay">
-                                               <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
+                                               <span class="uppercase"><a href="#"><?php $date= strtotime($row->post_date); echo date('d',$date);?><br><small><?php echo date('M',$date);?></small></a></span>
                                            </div>
                                         </div>
                                     </div>
                                     <div class="post-content overflow">
-                                        <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                        <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                        <a href="#" class="read-more">View More</a>
+                                        <h2 class="post-title bold"><a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><?php $string = strip_tags($row->post_title);
+                                if (strlen($string) > 35) {
+                                $stringCut = substr($string, 0, 35);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></a></h2>
+                                        <h3 class="post-author"><a href="<?php echo site_url('main/profile/'.$row->uname)?>">Posted by <?php echo $row->uname?></a></h3>
+                                        <p><?php $string = strip_tags($row->post_des);
+                                if (strlen($string) > 140) {
+                                $stringCut = substr($string, 0, 140);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></p>
+                                        <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>" class="read-more">View More</a>
                                         <div class="post-bottom overflow">
-                                            <span class="post-date pull-left">February 11, 2014</span>
-                                            <span class="comments-number pull-right"><a href="#">3 comments</a></span>
+                        
+                                        <ul class="nav nav-justified post-nav">
+                                        <li><center><a ><i class="fa fa-heart"></i>32 Likes</a></center></li>
+                                        <li><center><a ><i class="fa fa-comments"></i>3 Comments</a></center></li>
+                                        <li ><center><a href="#" style="color:#a91212;" onclick =""><i class="fa fa-trash-o"style="color:#a91212;"></i>Delete</a></center></li>
+                                        </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php $count++;} else{?>
                             <div class="col-sm-6 padding-left padding-top arrow-left wow fadeInRight" data-wow-duration="1000ms" data-wow-delay="300ms">
                                 <div class="single-blog timeline">
                                     <div class="single-blog-wrapper">
                                         <div class="post-thumb">
-                                            <img src="<?php echo base_url();?>/images/blog/timeline/2.jpg" class="img-responsive" alt="">
+                                            <img style ="max-height:261px;max-width:269px;  margin: 0 auto; align:center;" src="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" class="img-responsive" alt="">
                                             <div class="post-overlay">
-                                               <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
+                                               <span class="uppercase"><a href="#"><?php $date= strtotime($row->post_date); echo date('d',$date);?><br><small><?php echo date('M',$date);?></small></a></span>
                                            </div>
                                         </div>
                                     </div>
                                     <div class="post-content overflow">
-                                        <h2 class="post-title bold"><a href="blogdetails.html#">Advanced business cards design</a></h2>
-                                        <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                        <a href="#" class="read-more">View More</a>
+                                        <h2 class="post-title bold"><a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><?php $string = strip_tags($row->post_title);
+                                if (strlen($string) > 35) {
+                                $stringCut = substr($string, 0, 35);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></a></h2>
+                                        <h3 class="post-author"><a href="<?php echo site_url('main/profile/'.$row->uname)?>">Posted by <?php echo $row->uname?></a></h3>
+                                        <p><?php $string = strip_tags($row->post_des);
+                                if (strlen($string) > 140) {
+                                $stringCut = substr($string, 0, 140);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></p>
+                                        <a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>" class="read-more">View More</a>
                                         <div class="post-bottom overflow">
-                                            <span class="post-date pull-left">February 11, 2014</span>
-                                            <span class="comments-number pull-right"><a href="#">3 comments</a></span>
+                                            
+                                           <ul class="nav nav-justified post-nav">
+                                        <li><center><a href="#"><i class="fa fa-heart"></i>32 Likes</a></center></li>
+                                        <li><center><a href="#"><i class="fa fa-comments"></i>3 Comments</a></center></li>
+                                        <li ><center><a href="#" style="color:#a91212;" ><i class="fa fa-trash-o "style="color:#a91212;"></i>Delete</a></center></li>
+                                    </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 padding-right arrow-right wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
-                                <div class="single-blog timeline">
-                                    <div class="single-blog-wrapper">
-                                        <div class="post-thumb">
-                                            <iframe src="https://player.vimeo.com/video/95995577"></iframe>
-                                        </div>
-                                    </div>
-                                    <div class="post-content overflow">
-                                        <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                        <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                        <a href="#" class="read-more">View More</a>
-                                        <div class="post-bottom overflow">
-                                            <span class="post-date pull-left">February 11, 2014</span>
-                                            <span class="comments-number pull-right"><a href="#">3 comments</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php $count++;}}?>
                         </div>
                     </div>
-                    <div class="timeline-blog overflow">
-                        <div class="timeline-date text-center">
-                            <a href="" class="btn btn-common uppercase">September 2013</a>
-                        </div>
-                        <div class="timeline-divider overflow padding-bottom">
-                            <div class="col-sm-6 padding-right arrow-right wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
-                                <div class="single-blog timeline">
-                                    <div class="single-blog-wrapper">
-                                        <div class="post-thumb">
-                                            <img src="<?php echo base_url();?>/images/blog/timeline/3.jpg" class="img-responsive" alt="">
-                                            <div class="post-overlay">
-                                               <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                           </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-content overflow">
-                                        <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                        <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                        <a href="#" class="read-more">View More</a>
-                                        <div class="post-bottom overflow">
-                                            <span class="post-date pull-left">February 11, 2014</span>
-                                            <span class="comments-number pull-right"><a href="#">3 comments</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 padding-left padding-top arrow-left wow fadeInRight" data-wow-duration="1000ms" data-wow-delay="300ms">
-                                <div class="single-blog timeline">
-                                    <div class="single-blog-wrapper">
-                                        <div class="post-thumb">
-                                            <img src="<?php echo base_url();?>/images/blog/timeline/4.jpg" class="img-responsive" alt="">
-                                            <div class="post-overlay">
-                                               <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                           </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-content overflow">
-                                        <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                        <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                        <a href="#" class="read-more">View More</a>
-                                        <div class="post-bottom overflow">
-                                            <span class="post-date pull-left">February 11, 2014</span>
-                                            <span class="comments-number pull-right"><a href="#">3 comments</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-date text-center">
-                            <a href="#" class="btn btn-common">See More</a>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>

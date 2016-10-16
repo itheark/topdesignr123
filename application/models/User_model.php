@@ -150,6 +150,19 @@ class User_model extends CI_Model
 
 	}
 
+	function get_userpost($id)
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('post');
+		$this->db->join('user','user.user_id = post.post_by','inner');
+		$this->db->where(array('user_id' =>$id,));
+		$this->db->order_by('post_date',"desc");
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
 	function post_details($id)
 	{
 		$this->load->database();

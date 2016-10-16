@@ -112,8 +112,8 @@
                                 <div class="single-blog blog-details two-column">
                                     <div class="post-content overflow">
                                 
-                                        <h2 class="post-title bold"><a href="#"><?php echo $row->post_title?></a></h2>
-                                        <h3 class="post-author"><a href="#">Posted by <?php echo $row->uname; echo ' ';?>on<?php echo ' '; $date= strtotime($row->post_date); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?></a></h3>
+                                        <h2 class="post-title bold"><a><?php echo $row->post_title?></a></h2>
+                                        <h3 class="post-author"><a href="<?php echo site_url('main/profile/'.$row->uname)?>">Posted by <?php echo $row->uname; echo ' ';?>on<?php echo ' '; $date= strtotime($row->post_date); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?></a></h3>
                                         <div class = "container">
                                         <div class = "row"> 
                                        

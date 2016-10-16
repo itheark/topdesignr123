@@ -113,7 +113,7 @@
                                 $stringCut = substr($string, 0, 35);
                                 $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></a></h2>
 
-                                <h3 class="post-author"><a href="#">Posted by <?php echo $row->uname?></a></h3>
+                                <h3 class="post-author"><a href="<?php echo site_url('main/profile/'.$row->uname)?>">Posted by <?php echo $row->uname?></a></h3>
                                 <p style="height :80px"><?php $string = strip_tags($row->post_des);
                                 if (strlen($string) > 140) {
                                 $stringCut = substr($string, 0, 140);

@@ -213,7 +213,8 @@ function profile($name='')
                         }
                     else{
                         $data['following']= FALSE;
-                    }    
+                    } 
+    $data['post'] = $this->user_model->get_userpost($id1);                  
     $this->load->view('profile',$data);
 }
 else
