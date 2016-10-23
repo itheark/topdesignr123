@@ -134,7 +134,7 @@ class Main extends CI_Controller {
                         }
                         if($role=='admin')
                         {   
-                            redirect('main/home');
+                            redirect('admin/home');
                         }
                         else
                         {
