@@ -18,9 +18,13 @@ class Main extends CI_Controller {
     }
     function home(){
 
-        if($this->session->userdata('logged_in')){
+            if($this->session->userdata('logged_in')){
+              if($this->session->userdata('role')!='admin'){  
             $data['post']= $this->user_model->get_post();
-            $this->load->view('home',$data);
+            $this->load->view('home',$data);}
+            else{
+                redirect('admin/home');
+            }
         }else{
 
             $this->load->view('main');
@@ -144,7 +148,7 @@ class Main extends CI_Controller {
 
                     else
                     {
-                        $data['error'] = "Error occured. Try logging in again! </br>";
+                        $data['error'] = "Error occured. Try logging in again or Contact Administrator! </br>";
                         $this->load->view('login',$data);
                     }
                 }
@@ -175,12 +179,28 @@ class Main extends CI_Controller {
         $this->load->view('exploredetails',$data);
     }
 
-    function compete(){
-        $this->load->view('compete');
+    function compete($cat='All'){
+        $data['catname'] =$cat;
+        $data['cat'] = $this->user_model->category();
+        $data['query'] =$this->user_model->compete($cat);
+        $this->load->view('compete',$data);
+
     }
 
-    function competedetails(){
-       $this->load->view('competedetails');
+    function competedetails($id=0){
+        if($this->session->userdata('logged_in')){
+        $data['query']= $this->user_model->competedetails($id);
+       $this->load->view('competedetails',$data);}
+       else
+       {
+        redirect('main/login');
+       }
+   }
+
+   function submission($id=0)
+   {
+    
+    
    }
 
    function logout()

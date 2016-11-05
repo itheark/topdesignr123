@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Add Competition | TopDesignr</title>
+    <title>Signup | TopDesignr</title>
     <link href="<?php echo base_url();?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>/css/animate.min.css" rel="stylesheet"> 
     <link href="<?php echo base_url();?>/css/lightbox.css" rel="stylesheet"> 
 	
-    <link href="<?php echo base_url();?>/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    
 	<link href="<?php echo base_url();?>/css/responsive.css" rel="stylesheet">
     <link href="<?php echo base_url();?>/css/login.css" rel="stylesheet">
-       
+   
+
+    <!--[if lt IE 9]>
+	    <script src="js/html5shiv.js"></script>
+	    <script src="js/respond.min.js"></script>
+    <![endif]-->       
     <link rel="shortcut icon" href="<?php echo base_url();?>/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url();?>/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url();?>/images/ico/apple-touch-icon-114-precomposed.png">
@@ -24,20 +29,15 @@
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <script type="text/javascript">stLight.options({publisher: "7e8eb33b-fbe0-4915-9b93-09490e3d10df", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-       <link rel="stylesheet" href="<?php echo base_url();?>/css/jquery-ui.css">
-  
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+    <script type="text/javascript">
+    
+        
+</script>
 </head><!--/head-->
     
   <body>
 
-   <a href="<?php echo site_url('admin/home') ?>">
+   <a href="<?php echo site_url('main/home') ?>">
 <h3><img class="mainlogo" src="<?php echo base_url();?>/images/logo.png" alt="logo"></h3></a>
        
       <div class="container">
@@ -46,7 +46,7 @@
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
-								<a href="#" class="active" id="register-form-link">New Competition</a>
+								<a href="#" class="active" id="register-form-link">Add User</a>
 						</div>
 						<hr>
 					</div>
@@ -54,33 +54,20 @@
 						<div class="row">
 							<div class="col-lg-12">
                                 <span><?php echo $error;?><?php echo validation_errors();?></span>
-                                <?php echo form_open('admin/add_competition');?>
+                                <?php echo form_open('admin/user_register');?>
 								<form id="register-form" action="" method="post" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="c_title" id="c_title" tabindex="1" class="form-control" placeholder="Competition Title" value="<?php echo set_value('c_title');?>">
+										<input type="text" name="uname" id="username" tabindex="1" class="form-control" placeholder="Username" value="<?php echo set_value('uname');?>">
 									</div>
-                                    <div class="form-group">
-                                        <input type="text" name="c_des" id="c_des" tabindex="1" class="form-control" placeholder="Add a description" value="<?php echo set_value('c_des');?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="c_host" id="c_host" tabindex="1" class="form-control" placeholder="Competition conducted by.." value="<?php echo set_value('c_host');?>">    
-                                    </div>
-                                     <div class="form-group">
-                                        <input type="text" name="c_lastdate" id="datepicker" tabindex="1" class="form-control" placeholder="Last Date for Submission" value="<?php echo set_value('c_lastdate');?>">    
-                                    </div>
-								    
-                                    <div class="form-group">
-                                        <input type="text" name="c_prize" id="c_prize" tabindex="1" class="form-control" placeholder="Prize" value="<?php echo set_value('c_prize');?>">
-                                    </div>
-                                    <div class="form-group">
-                                      <select name="c_category" id="c_category" tabindex="1" class="form-control" placeholder= "Select Category" value="<?php echo set_value('c_category');?>">
-                                        <option value="" selected disabled>Select Category</option>
-                                        <?php foreach ($cat as $row) {?>
-                                
-                                        <option><?php echo $row->cat_name?></option>
-                                        <?php } ?>
-                                      </select>
-                                    </div>	
+									<div class="form-group">
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="<?php echo set_value('email');?>">
+									</div>
+									<div class="form-group">
+										<input type="password" name="pwd" id="password" tabindex="2" class="form-control" placeholder="Password" value = "<?php echo set_value('pwd');?>">
+									</div>
+									<div class="form-group">
+										<input type="password" name="cpwd" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" value = "<?php echo set_value('cpwd');?>">
+									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
@@ -100,7 +87,7 @@
 	</div>
         <footer id="footer">
         <div class="container">
-       
+        <p align ="center">Have an Account? <a href="<?php echo site_url('main/login') ?>">LOG IN</a></p>
             <div class="row">
                 
                

@@ -43,7 +43,7 @@ class User_model extends CI_Model
 
 				$salt = $rows->salt;
 				$enc_pass = $rows->pwd;
-				if($this->encrypt($salt,$pwd)==$enc_pass)
+				if($this->encrypt($salt,$pwd)==$enc_pass && $rows->active =='1')
 				{
 
 				$logdata = array(
@@ -143,7 +143,7 @@ class User_model extends CI_Model
 		$this->db->from('post');
 		$this->db->join('user','user.user_id = post.post_by','inner');
 		$this->db->join('follow','follow.followee_id = post.post_by','inner');
-		$this->db->where(array('follow.user_id'=>$this->session->userdata('user_id'),));
+		$this->db->where(array('follow.user_id'=>$this->session->userdata('user_id'),'flag'=>'0',));
 		$this->db->order_by('post_date',"desc");
 		$query = $this->db->get();
 		return $query->result();
@@ -156,7 +156,7 @@ class User_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('post');
 		$this->db->join('user','user.user_id = post.post_by','inner');
-		$this->db->where(array('user_id' =>$id,));
+		$this->db->where(array('user_id' =>$id,'flag'=>'0',));
 		$this->db->order_by('post_date',"desc");
 		$query = $this->db->get();
 		return $query->result();
@@ -169,7 +169,7 @@ class User_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('post');
 		$this->db->join('user','user.user_id = post.post_by','inner');
-		$this->db->where(array('post_id' =>$id,));
+		$this->db->where(array('post_id' =>$id,'flag'=>'0',));
 		$query = $this->db->get();
 		return $query->result();
 
@@ -181,11 +181,52 @@ class User_model extends CI_Model
 		$this->db->from('post');
 		$this->db->join('user','user.user_id = post.post_by','inner');
 		$this->db->where('post.post_by != ',$this->session->userdata('user_id'),FALSE);
+		$this->db->where(array('flag'=>'0',));
 		$this->db->order_by('post_date',"desc");
 		$query = $this->db->get();
 		return $query->result();
 
 	}
+
+	function compete($cat)
+	{
+		$this->load->database();
+		if($cat=='All'){
+		$this->db->select('*');
+		$this->db->from('competition');
+		$this->db->where(array('flag'=>'0',));
+		$this->db->order_by('c_lastdate',"desc");
+		$query = $this->db->get();
+		}
+		else{
+		$this->db->select('*');
+		$this->db->from('competition');
+		$this->db->where(array('flag'=>'0','c_category'=>$cat));
+		$this->db->order_by('c_lastdate',"desc");
+		$query = $this->db->get();
+		}
+		return $query->result();
+	}
+
+	function competedetails($id)
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('competition');
+		$this->db->where(array('c_id' =>$id,'flag'=>'0',));
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function category()
+	{
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('category');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 
 
 	function profile($id)

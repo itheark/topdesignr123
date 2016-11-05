@@ -46,7 +46,7 @@
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
-								<a href="#" class="active" id="register-form-link">New Competition</a>
+								<a href="#" class="active" id="register-form-link">Edit Competition</a>
 						</div>
 						<hr>
 					</div>
@@ -54,32 +54,36 @@
 						<div class="row">
 							<div class="col-lg-12">
                                 <span><?php echo $error;?><?php echo validation_errors();?></span>
-                                <?php echo form_open('admin/add_competition');?>
+                                <?php echo form_open('admin/edit');?>
+                                <?php foreach ($comp as $row ) {?>
+                                  
+                                
 								<form id="register-form" action="" method="post" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="c_title" id="c_title" tabindex="1" class="form-control" placeholder="Competition Title" value="<?php echo set_value('c_title');?>">
+										<input type="text" name="c_title" id="c_title" tabindex="1" class="form-control" placeholder="Competition Title" value="<?php echo set_value('c_title', isset($row->c_title) ? $row->c_title : '');?>">
 									</div>
                                     <div class="form-group">
-                                        <input type="text" name="c_des" id="c_des" tabindex="1" class="form-control" placeholder="Add a description" value="<?php echo set_value('c_des');?>">
+                                        <input type="text" name="c_des" id="c_des" tabindex="1" class="form-control" placeholder="Add a description" value="<?php echo set_value('c_des', isset($row->c_des) ? $row->c_des : '');?>">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="c_host" id="c_host" tabindex="1" class="form-control" placeholder="Competition conducted by.." value="<?php echo set_value('c_host');?>">    
+                                        <input type="text" name="c_host" id="c_host" tabindex="1" class="form-control" placeholder="Competition conducted by.." value="<?php echo set_value('c_host', isset($row->c_host) ? $row->c_host : '');?>">    
                                     </div>
                                      <div class="form-group">
-                                        <input type="text" name="c_lastdate" id="datepicker" tabindex="1" class="form-control" placeholder="Last Date for Submission" value="<?php echo set_value('c_lastdate');?>">    
+                                        <input type="text" name="c_lastdate" id="datepicker" tabindex="1" class="form-control" placeholder="Last Date for Submission" value="<?php echo set_value('c_lastdate', isset($row->c_lastdate) ? date("m/d/Y",strtotime($row->c_lastdate)) : '');?>">    
                                     </div>
 								    
                                     <div class="form-group">
-                                        <input type="text" name="c_prize" id="c_prize" tabindex="1" class="form-control" placeholder="Prize" value="<?php echo set_value('c_prize');?>">
+                                        <input type="text" name="c_prize" id="c_prize" tabindex="1" class="form-control" placeholder="Prize" value="<?php echo set_value('c_prize', isset($row->c_prize) ? $row->c_prize : '');?>">
                                     </div>
                                     <div class="form-group">
-                                      <select name="c_category" id="c_category" tabindex="1" class="form-control" placeholder= "Select Category" value="<?php echo set_value('c_category');?>">
-                                        <option value="" selected disabled>Select Category</option>
-                                        <?php foreach ($cat as $row) {?>
-                                
-                                        <option><?php echo $row->cat_name?></option>
-                                        <?php } ?>
-                                      </select>
+                                       <select name="c_category" id="c_category" tabindex="1" class="form-control" placeholder= "Select Category" value="<?php echo set_value('c_category', isset($row->c_category) ? $row->c_category : '');?>">
+                                        <option  value="<?php echo set_value('c_category', isset($row->c_category) ? $row->c_category : '');?>" selected disabled>Select Category</option>
+                                        <option  value="cat1" <?php echo set_select('myselect', 'cat1', ($row->c_category== 'cat1')); ?>>cat1</option>
+                                        <option  value="cat2" <?php echo set_select('myselect', 'cat2', ($row->c_category== 'cat2')); ?>>cat2</option>
+                                        <option  value="cat3" <?php echo set_select('myselect', 'cat3', ($row->c_category== 'cat3')); ?>>cat3</option>
+                                        <option  value="cat4" <?php echo set_select('myselect', 'cat4', ($row->c_category== 'cat4')); ?>>cat4</option>
+                                      </select> 
+       +                           
                                     </div>	
 									<div class="form-group">
 										<div class="row">
@@ -89,6 +93,7 @@
 										</div>
 									</div>
 								</form>
+                <?php }?>
                                 <?php echo form_close();?>
 							</div>
 						</div>

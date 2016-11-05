@@ -22,6 +22,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url();?>/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url();?>/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="<?php echo base_url();?>/images/ico/apple-touch-icon-57-precomposed.png">
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "7e8eb33b-fbe0-4915-9b93-09490e3d10df", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript">
@@ -102,73 +106,39 @@ $(document).ready(function(){
    </section>
     <!--/#page-breadcrumb-->
 
+  <div class="col-sm-12 col-md-12">
     <section id="blog" class="padding-top">
         <div class="container">
             <div class="row">
-                <div class="col-md-9 col-sm-7">
+                
+                <div class="col-md-9 col-sm-7"> 
                     <div class="row">
-                         <div class="col-sm-12 col-md-12">
-                            <div class="single-blog single-column">
-                                <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="blogdetails.html">Urban Work Wear Design</a></h2>
-                                    <h3 class="post-author"><a href="#">By ABC Company</a></h3>
-                                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                    <a href="#" class="read-more">View More</a>
-                                    <div class="post-bottom overflow">
-                                        <ul class="nav navbar-nav post-nav">
-                                           <li><a href="#" data-toggle="popover" title="Time Left" data-content="10 Days 4 Hrs"><i class="fa fa-clock-o"></i>10 Days 4 Hrs</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Prize" data-content="$1000"><i class="fa fa-trophy"></i>$1000</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Registrants" data-content="45"><i class="fa fa-group"></i>45</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-sm-12 col-md-12">
-                            <div class="single-blog single-column">
-                                <div class="post-thumb">
-                                    <div class="post-overlay">
-                                       <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                   </div>
-                                </div>
+                            <?php foreach($query as $row){?>
+                           <div class="single-blog single-column">
                                 <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="blogdetails.html">Urban Work Wear Design</a></h2>
-                                    <h3 class="post-author"><a href="#">By ABC Company</a></h3>
-                                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                    <a href="#" class="read-more">View More</a>
+                                    <h2 class="post-title bold"><a href="<?php echo site_url('main/competedetails/'.$row->c_id)?>"><?php echo $row->c_title?></a></h2>
+                                    <h3 class="post-author"><a href="">By <?php echo $row->c_host?></a></h3>
+                                    <p><?php $string = strip_tags($row->c_des);
+                                if (strlen($string) > 250) {
+                                $stringCut = substr($string, 0, 250);
+                                $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'[...]'; }echo $string;?></p>
+                                    <a href="<?php echo site_url('main/competedetails/'.$row->c_id)?>" class="read-more">View More</a>
                                     <div class="post-bottom overflow">
                                         <ul class="nav navbar-nav post-nav">
-                                           <li><a href="#" data-toggle="popover" title="Time Left" data-content="10 Days 4 Hrs"><i class="fa fa-clock-o"></i>10 Days 4 Hrs</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Prize" data-content="$1000"><i class="fa fa-trophy"></i>$1000</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Registrants" data-content="45"><i class="fa fa-group"></i>45</a></li>
+                                            <li><a href="#" data-toggle="popover" title="Last Date" data-content="<?php $date= strtotime($row->c_lastdate); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?>"><i class="fa fa-clock-o"></i><?php $date= strtotime($row->c_lastdate); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?></a></li>
+                                            <li><a href="#" data-toggle="popover" title="Prize" data-content="<?php echo $row->c_prize?>"><i class="fa fa-trophy"></i><?php echo $row->c_prize?></a></li>
+                                            <li><a href="#" data-toggle="popover" title="Registrants" data-content="<?php echo $row->c_registrants?>"><i class="fa fa-group"></i><?php echo $row->c_registrants?></a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
-                        <div class="col-sm-12 col-md-12">
-                            <div class="single-blog single-column">
-                                <div class="post-thumb">
-                                    <div class="post-overlay">
-                                       <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                   </div>
-                                </div>
-                                <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="<?php echo site_url('main/competedetails') ?>">Urban Work Wear Design</a></h2>
-                                    <h3 class="post-author"><a href="#">By ABC Company</a></h3>
-                                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                    <a href="#" class="read-more">View More</a>
-                                    <div class="post-bottom overflow">
-                                        <ul class="nav navbar-nav post-nav">
-                                            <li><a href="#" data-toggle="popover" title="Time Left" data-content="10 Days 4 Hrs"><i class="fa fa-clock-o"></i>10 Days 4 Hrs</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Prize" data-content="$1000"><i class="fa fa-trophy"></i>$1000</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Registrants" data-content="45"><i class="fa fa-group"></i>45</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    
+                
                     </div>
+                  
                     <div class="blog-pagination">
                         <ul class="pagination">
                           <li><a href="#">left</a></li>
@@ -191,14 +161,9 @@ $(document).ready(function(){
                         <div class="sidebar-item categories">
                             <h3>Categories</h3>
                             <ul class="nav navbar-stacked">
-                                <li><a href="#">Lorem ipsum<span class="pull-right">(1)</span></a></li>
-                                <li class="active"><a href="#">Dolor sit amet<span class="pull-right">(8)</span></a></li>
-                                <li><a href="#">Adipisicing elit<span class="pull-right">(4)</span></a></li>
-                                <li><a href="#">Sed do<span class="pull-right">(9)</span></a></li>
-                                <li><a href="#">Eiusmod<span class="pull-right">(3)</span></a></li>
-                                <li><a href="#">Mockup<span class="pull-right">(4)</span></a></li>
-                                <li><a href="#">Ut enim ad minim <span class="pull-right">(2)</span></a></li>
-                                <li><a href="#">Veniam, quis nostrud <span class="pull-right">(8)</span></a></li>
+                                <?php foreach($cat as $row){?>
+                                <li class="<?php if($row->cat_name == $catname){echo "active";}?>"><a href="<?php echo site_url('main/compete/'.$row->cat_name)?>"><?php echo $row->cat_name?><span class="pull-right"></span></a></li>
+                                <?php }?>
                             </ul>
                         </div>
                         <div class="sidebar-item tag-cloud">

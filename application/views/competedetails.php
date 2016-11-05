@@ -89,95 +89,29 @@ $(document).ready(function(){
     </header>
     <!--/#header-->
 
-
-    <section id="page-breadcrumb">
-        <div class="vertical-center sun">
-             <div class="container">
-                <div class="row">
-                    <div class="action">
-                        <div class="col-sm-12">
-                            <h1 class="title">Urban Work Wear Design</h1>
-                        </div>                                                                                
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<?php foreach($query as $row){?>
+  
     <!--/#page-breadcrumb-->
 
-    <section id="blog-details" class="padding-top">
+    <section id="blog-details">
         <div class="container">
             <div class="row">
                 <div class="col-md-9 col-sm-7">
                     <div class="row">
-                         <div class="col-md-12 col-sm-12">
+                         <div class="col-md-10 col-sm-12">
                             <div class="single-blog blog-details two-column">
                                 <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="#">Urban Work Wear Design</a></h2>
-                                    <h3 class="post-author"><a href="#">By ABC Company</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. <br> <br>
-
-                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
-                                       <a href="#" class="btn btn-common" data-toggle="modal" data-target="#myModalHorizontal">SUBMIT</a>
-                                    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" 
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <button type="button" class="close" 
-                   data-dismiss="modal">
-                       <span aria-hidden="true">&times;</span>
-                       <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                   Submit Your Entry
-                </h4>
-            </div>
-            
-            <!-- Modal Body -->
-            <div class="modal-body">
-                
-                <form class="form-horizontal" role="form">
-                  <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" 
-                        id="inputEmail3" placeholder="Add Image File as .JPG or .PNG"/> 
-                    </div>
-                  </div>
-                    <div class="form-group">
-                         <div class="col-sm-10 text-right">
-                    <button type="submit" class="btn btn-default">ADD FILE</button>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="Comments"/>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10 text-center">
-                         <button type="button" class="btn btn-primary">
-                    SUBMIT
-                </button>
-                    </div>
-                  </div>
-                </form>
-                
-                
-                
-                
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
+                                    <h2 class="post-title bold"><a href="#"><?php echo $row->c_title?></a></h2>
+                                    <h3 class="post-author"><a href="#">By <?php echo $row->c_host?></a></h3>
+                                    <p><?php echo $row->c_des?></p>
+                                    <br><br>
+                                       <a href="<?php echo site_url('main/submission/'.$row->c_id)?>" class="btn btn-common">SUBMIT YOUR ENTRIES</a>
+                     
                                     <div class="post-bottom overflow">
                                         <ul class="nav navbar-nav post-nav">
-                                            <li><a href="#" data-toggle="popover" title="Time Left" data-content="10 Days 4 Hrs"><i class="fa fa-clock-o"></i>10 Days 4 Hrs</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Prize" data-content="$1000"><i class="fa fa-trophy"></i>$1000</a></li>
-                                            <li><a href="#" data-toggle="popover" title="Registrants" data-content="45"><i class="fa fa-group"></i>45</a></li>
+                                            <li><a href="#" data-toggle="popover" title="Last Date" data-content="<?php $date= strtotime($row->c_lastdate); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?>"><i class="fa fa-clock-o"></i><?php $date= strtotime($row->c_lastdate); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?></a></li>
+                                            <li><a href="#" data-toggle="popover" title="Prize" data-content="<?php echo $row->c_prize?>"><i class="fa fa-trophy"></i><?php echo $row->c_prize?></a></li>
+                                            <li><a href="#" data-toggle="popover" title="Registrants" data-content="<?php echo $row->c_registrants?>"><i class="fa fa-group"></i><?php echo $row->c_registrants?></a></li>
                                         </ul>
                                     </div>
                                     <div class="blog-share">
@@ -198,6 +132,7 @@ $(document).ready(function(){
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="response-area">
                                     <h2 class="bold">Comments</h2>
                                     <ul class="media-list">
@@ -293,6 +228,7 @@ $(document).ready(function(){
             </div>
         </div>
     </section>
+     <?php } ?>
     <!--/#blog-->
 <footer id="footer">
         <div class="container">
