@@ -138,18 +138,7 @@
                                             <span class='st_linkedin_hcount'></span>
                                             <span class='st_email_hcount'></span>
                                         </div>
-                                        <div class="author-profile padding">
-                                            <div class="row">
-                                                <div class="col-sm-2">
-                                                    <img src="<?php echo base_url();?>/images/blogdetails/1.png" alt="">
-                                                </div>
-                                                <div class="col-sm-10">
-                                                    <h3>User X<a href="#" class="pull-right" ><i class="fa fa-user-plus "></i> Follow</a></h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</p>
-                                              
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="response-area">
                                         <h2 class="bold">Comments</h2>
                                         <ul class="media-list">

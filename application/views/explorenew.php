@@ -119,7 +119,7 @@
                                     <ul class="nav nav-pills">
                                         <li><a href="<?php echo site_url('main/exploredetails/'.$row->post_id)?>"><i class="fa fa-link"></i></a></li>
                                         
-                                        <li><a href="<?php echo base_url();?>/uploads/post/thumb/<?php echo $row->post_image?>" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="<?php echo base_url();?>/uploads/post/<?php echo $row->post_image?>" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
                                          
                                     </ul>
                               

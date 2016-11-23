@@ -101,12 +101,16 @@ $(document).ready(function(){
                          <div class="col-md-10 col-sm-12">
                             <div class="single-blog blog-details two-column">
                                 <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="#"><?php echo $row->c_title?></a></h2>
+                                    <h2 class="post-title bold"><a href=""><?php echo $row->c_title?></a></h2>
                                     <h3 class="post-author"><a href="#">By <?php echo $row->c_host?></a></h3>
                                     <p><?php echo $row->c_des?></p>
                                     <br><br>
+                                    <?php if($submitted==FALSE){?>
                                        <a href="<?php echo site_url('main/submission/'.$row->c_id)?>" class="btn btn-common">SUBMIT YOUR ENTRIES</a>
-                     
+                                    <?php } else{?>
+                                        <h3 class="post-author" style="color:#1bad6b"><b><li><i class="fa fa-check-circle"></i> You've already submitted your entry.<br></b></h2>
+                                        <a href="<?php echo site_url('main/submission/'.$row->c_id)?>" class="btn btn-common">SUBMIT MORE ENTRIES</a>
+                                        <?php }?>
                                     <div class="post-bottom overflow">
                                         <ul class="nav navbar-nav post-nav">
                                             <li><a href="#" data-toggle="popover" title="Last Date" data-content="<?php $date= strtotime($row->c_lastdate); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?>"><i class="fa fa-clock-o"></i><?php $date= strtotime($row->c_lastdate); echo date('d',$date);echo ' ';echo date('M',$date);echo ', ';echo date('Y',$date);?></a></li>

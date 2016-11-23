@@ -154,6 +154,9 @@
 						'post_date' =>  date('Y-m-d H:i:s', strtotime($post_date)),);
 		$this->db->insert('post',$data);
 		$id =$this->db->insert_id();
+		$this->db->where('user_id',$this->session->userdata('user_id'));
+		$this->db->set('no_posts', 'no_posts + 1', FALSE);
+		$this->db->update('user');
 		/*$this->db->select('post_id');
 		$this->db->from('post');
 		$this->db->where(array('post_des'=> $this->input->post('post_des'),));

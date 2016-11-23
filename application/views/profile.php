@@ -108,37 +108,27 @@
     <div class="container">
         <div>
             <center>
-                
+              <?php foreach ($user as $row) {?>   
             <div class="hovereffect">
             <img class="img-responsive img-circle" style="display: block;
         margin-left: auto;
-        margin-right: auto" src="<?php echo base_url();?>/images/profile.jpg" width ="200" height="200"  alt="">
+        margin-right: auto" src="<?php echo base_url();?>/uploads/profile/<?php echo $row->image?>" width ="200" height="200"  alt="">
             <div class="overlay">
                     
                     <p class="set1">
-                        <a href="#">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-facebook"></i>
-                        </a>
+                        <?php if($this->session->userdata('user_id')==$row->user_id){?>
+                            <a href=" <?php echo site_url('main/profile_pic');?>" style="outline:none," ><b><i class="fa fa-edit "></i></b></a>
+                       <?php }?>
                     </p>
                     
-                    <p class="set2">
-                        <a href="#">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-dribbble"></i>
-                        </a>
-                    </p>
+                 
                 </div>
         </div>
 
 
     <section class="buttons1">
         <div class="buttons1 container">
-            <?php foreach ($user as $row) {?>
+           
         <a href="#aboutModal" data-toggle="modal" data-target="#myModal" class=" btn btn-1" style="outline:none"><h3>Nidhi Om Subhash</h3></a>    
              <!--<h3><a href="#" class="btn btn-1" ><i class="fa fa-user-plus "></i> Follow</a></h3>!-->
              <br>
@@ -148,7 +138,7 @@
              <a href="" class="btn btn-1" style="outline:none" ><i class="fa fa-edit "></i> Edit</a></h3>
              <?php } else{ ?>
              <?php if($following==TRUE) { ?>
-              <a href="<?php echo site_url('main/unfollow/'.$row->user_id);?>" class="btn btn-1" style="outline:none" id="button" data-following="<?php echo $following;?>"><i class="fa fa-user-plus"></i>
+              <a href="<?php echo site_url('main/unfollow/'.$row->user_id);?>" class="btn btn-1" style="outline:none" id="button" data-following="<?php echo $following;?>"><i class="fa fa-check-circle-o"></i>
             <?php echo "Following";} ?></a> <?php if($following==FALSE) {?>
               <a href="<?php echo site_url('main/follow/'.$row->user_id);?>" class="btn btn-1" style="outline:none" id="button" data-following="<?php echo $following;?>"><i class="fa fa-user-plus"></i>
               <?php 
@@ -157,9 +147,9 @@
               
 
              <?php } ?>
-             <h3 class="btn btn-common " >1098 Followers</h3>
-             <h3 class="btn btn-common " >530 Posts</h3>
-             <h3 class="btn btn-common " >400 Following</h3>
+             <h3 class="btn btn-common " ><?php echo $row->followers;?> Followers</h3>
+             <h3 class="btn btn-common " ><?php echo $row->no_posts;?> Posts</h3>
+             <h3 class="btn btn-common " ><?php echo $row->following;?> Following</h3>
              <?php }?>
              </div>
     </section>

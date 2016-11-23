@@ -189,7 +189,20 @@ class Main extends CI_Controller {
 
     function competedetails($id=0){
         if($this->session->userdata('logged_in')){
-        $data['query']= $this->user_model->competedetails($id);
+                     $data['query']= $this->user_model->competedetails($id);
+                    $id1=$id;
+                    $id2= $this->session->userdata('user_id');
+                    $check = "SELECT * FROM submission where c_id = '$id1' AND user_id = '$id2'";
+                    $query = $this->db->query($check);
+
+                    if($query->num_rows()>0)
+                    {
+                        $data['submitted']= TRUE;
+                        }
+                    else{
+                        $data['submitted']= FALSE;
+                    } 
+       
        $this->load->view('competedetails',$data);}
        else
        {
@@ -199,7 +212,52 @@ class Main extends CI_Controller {
 
    function submission($id=0)
    {
+
     
+    if($this->input->post('filesubmit'))
+    {  
+            $filesCount = count($_FILES['userFiles']['name']);
+            $path = "uploads/competition/".$this->session->userdata('c_id')."/".$this->session->userdata('user_id');
+            mkdir($path,0755,TRUE);
+            for($i = 0; $i < $filesCount; $i++){
+                $_FILES['userFile']['name'] = $_FILES['userFiles']['name'][$i];
+                $_FILES['userFile']['type'] = $_FILES['userFiles']['type'][$i];
+                $_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'][$i];
+                $_FILES['userFile']['error'] = $_FILES['userFiles']['error'][$i];
+                $_FILES['userFile']['size'] = $_FILES['userFiles']['size'][$i];
+
+                $uploadPath = 'uploads/competition/'.$this->session->userdata('c_id')."/".$this->session->userdata('user_id');
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|png';
+                
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('userFile')){
+                    $fileData = $this->upload->data();
+                    $uploadData[$i]['file_name'] = $fileData['file_name'];
+                    $uploadData[$i]['created'] = date("Y-m-d H:i:s");
+                    $uploadData[$i]['modified'] = date("Y-m-d H:i:s");
+                }
+                else{
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('submission', $error);
+                }
+            }
+            if(!empty($uploadData)){
+                $this->user_model->submission();
+                redirect('main/compete');
+            
+            }
+            
+
+
+        
+    }
+    else{
+        $this->session->set_userdata(array('c_id'=> $id,));
+        $this->load->view('submission',array('error' => ' ' ));
+    }  
     
    }
 
@@ -242,6 +300,83 @@ else
     redirect('main/login');
 }
 
+}
+
+function profile_pic()
+{
+    if($this->input->post('submit'))
+    {  
+        
+        
+
+            $file_name = $this->session->userdata('user_id');
+
+            $config =  array(
+              'upload_path'     => "./uploads/profile",
+              'allowed_types'   => "jpg|png|jpeg",
+              'overwrite'       => TRUE,
+                  'max_size'        => "2048",  // Can be set to particular file size
+                  'max_height'      => "4096",
+                  'max_width'       => "4096" ,
+                  'file_name'       =>  $file_name
+                  );  
+
+            $this->load->library('upload', $config);
+            if($this->upload->do_upload())
+            {
+
+
+                $data = array('upload_data' => $this->upload->data());
+
+                   //FOr Main Image
+
+                $this->user_model->add_pic($data['upload_data'],$file_name);
+
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './uploads/profile/'.$data['upload_data']['file_name'];
+                    //$config['create_thumb'] = TRUE;
+                $config['maintain_ratio'] = TRUE;
+                $config['width']     = 200;
+                $config['height']   = 200;
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config);
+                $this->image_lib->resize();
+                    //For Thumbnail
+
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './uploads/profile/'.$data['upload_data']['file_name'];
+                    //$config['create_thumb'] = TRUE;
+                $config['maintain_ratio'] = TRUE;
+                $config['new_image'] = './uploads/profile/thumb/'.$data['upload_data']['file_name'];
+                $config['width']     = 50;
+                $config['height']   = 50;
+
+
+
+
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config);
+                $this->image_lib->resize();
+
+
+
+
+
+                redirect('main/profile/'.$this->session->userdata('uname'));
+            }
+            else
+            {
+                $error = array('error' => $this->upload->display_errors());
+                
+                $this->load->view('profile_pic', $error);
+            }  
+
+
+        }
+    
+    else{
+        $this->load->view('profile_pic',array('error' => ' ' ));
+    }  
 }
 function follow($id)
 {

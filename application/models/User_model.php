@@ -92,6 +92,9 @@ class User_model extends CI_Model
 						'post_date' =>  date('Y-m-d H:i:s', strtotime($post_date)),);
 		$this->db->insert('post',$data);
 		$id =$this->db->insert_id();
+		$this->db->where('user_id',$this->session->userdata('user_id'));
+		$this->db->set('no_posts', 'no_posts + 1', FALSE);
+		$this->db->update('user');
 		/*$this->db->select('post_id');
 		$this->db->from('post');
 		$this->db->where(array('post_des'=> $this->input->post('post_des'),));
@@ -128,6 +131,14 @@ class User_model extends CI_Model
 		$data = array('post_image' =>$file['file_name']);
 		$this->db->where('post_id',$id);
 		$this->db->update('post',$data);
+	}
+
+	function add_pic($file,$id)
+	{
+		$this->load->database();
+		$data = array('image' =>$file['file_name']);
+		$this->db->where('user_id',$id);
+		$this->db->update('user',$data);
 	}
 
 	function delete_post($id)
@@ -218,6 +229,19 @@ class User_model extends CI_Model
 		return $query->result();
 	}
 
+	function submission()
+	{
+		$this->load->database();
+		$this->db->where('c_id',$this->session->userdata('c_id'));
+		$this->db->set('c_registrants', 'c_registrants + 1', FALSE);
+		$this->db->update('competition');
+		$data = array( 'user_id'=>$this->session->userdata('user_id'),
+						'c_id'=>$this->session->userdata('c_id'),
+						);
+		$this->db->insert('submission',$data);
+
+	}
+
 	function category()
 	{
 		$this->load->database();
@@ -226,8 +250,6 @@ class User_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
-
-
 
 	function profile($id)
 
@@ -261,13 +283,29 @@ class User_model extends CI_Model
 						'followee_id'=>$var
 						);
 		$this->db->insert('follow',$data);
+
+		$this->db->where('user_id',$this->session->userdata('user_id'));
+		$this->db->set('following', 'following + 1', FALSE);
+		$this->db->update('user');
+
+		$this->db->where('user_id',$var);
+		$this->db->set('followers', 'followers + 1', FALSE);
+		$this->db->update('user');
+
 	}
 	function unfollow($var)
 	{
 		$this->load->database();
 		$this->db->where(array('user_id'=>$this->session->userdata('user_id'),
 						'followee_id'=>$var));
-   		$this->db->delete('follow'); 
+   		$this->db->delete('follow');
+   		 
+   		$this->db->where('user_id',$this->session->userdata('user_id'));
+		$this->db->set('following', 'following - 1', FALSE);
+		$this->db->update('user');
+		$this->db->where('user_id',$var);
+		$this->db->set('followers', 'followers - 1', FALSE);
+		$this->db->update('user');
 	}
 
 
