@@ -11,7 +11,7 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require":{
-	"../vendor/autoload.php"
+	"../vendor":"autoload.php"
 	},
 	"require": {
 		"php": ">=5.2.4"
