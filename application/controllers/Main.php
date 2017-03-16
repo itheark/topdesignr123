@@ -19,7 +19,7 @@ class Main extends CI_Controller {
     function home(){
 
             if($this->session->userdata('logged_in')){
-              if($this->session->userdata('role')!='admin'){  
+              if($this->session->userdata('role')!='admin'){
             $data['post']= $this->user_model->get_post();
             $this->load->view('home',$data);}
             else{
@@ -38,12 +38,12 @@ class Main extends CI_Controller {
         $this->load->model('user_model');
 
         $this->load->database();
-        
+
         if($this->session->userdata('logged_in'))
         {
             redirect('main/home');
         }
-        else    
+        else
         {
 
             $data['error'] = '';
@@ -55,9 +55,9 @@ class Main extends CI_Controller {
                 $this->form_validation->set_rules('uname', 'Username', 'required');
                 $this->form_validation->set_rules('email', 'Email',  'required|valid_email');
                 $this->form_validation->set_rules('pwd', 'Password', 'required|matches[cpwd]');
-                $this->form_validation->set_rules('cpwd', 'Confirm Password', 'required');  
+                $this->form_validation->set_rules('cpwd', 'Confirm Password', 'required');
 
-                if($this->form_validation->run() == FALSE) 
+                if($this->form_validation->run() == FALSE)
                 {
 
                     $this->load->view('register',$data);
@@ -83,12 +83,12 @@ class Main extends CI_Controller {
                         $user = $this->user_model->new_user($salt,$new_pwd);
 
                         redirect('main/login');
-                    }   
+                    }
                 }
 
             }
 
-            else    
+            else
             {
                 $this->load->view('register',$data);
             }
@@ -102,11 +102,11 @@ class Main extends CI_Controller {
         {
             redirect('main/home');
         }
-        
+
         $session_set_value = $this->session->all_userdata();
 
-        if (isset($session_set_value['remember_me']) && $session_set_value['remember_me'] == "1") 
-        {           
+        if (isset($session_set_value['remember_me']) && $session_set_value['remember_me'] == "1")
+        {
             redirect('main/home');
         }
         else
@@ -137,7 +137,7 @@ class Main extends CI_Controller {
                             $this->session->set_userdata('remember_me', TRUE);
                         }
                         if($role=='admin')
-                        {   
+                        {
                             redirect('admin/home');
                         }
                         else
@@ -171,9 +171,9 @@ class Main extends CI_Controller {
         }else{
 
             $this->load->view('explore');
-        }  
-        
-    } 
+        }
+
+    }
     function exploredetails($id=0){
         $data['post']= $this->user_model->post_details($id);
         $this->load->view('exploredetails',$data);
@@ -201,8 +201,8 @@ class Main extends CI_Controller {
                         }
                     else{
                         $data['submitted']= FALSE;
-                    } 
-       
+                    }
+
        $this->load->view('competedetails',$data);}
        else
        {
@@ -213,9 +213,9 @@ class Main extends CI_Controller {
    function submission($id=0)
    {
 
-    
+
     if($this->input->post('filesubmit'))
-    {  
+    {
             $filesCount = count($_FILES['userFiles']['name']);
             $path = "uploads/competition/".$this->session->userdata('c_id')."/".$this->session->userdata('user_id');
             mkdir($path,0755,TRUE);
@@ -229,7 +229,7 @@ class Main extends CI_Controller {
                 $uploadPath = 'uploads/competition/'.$this->session->userdata('c_id')."/".$this->session->userdata('user_id');
                 $config['upload_path'] = $uploadPath;
                 $config['allowed_types'] = 'jpg|png';
-                
+
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
                 if($this->upload->do_upload('userFile')){
@@ -247,18 +247,18 @@ class Main extends CI_Controller {
             if(!empty($uploadData)){
                 $this->user_model->submission();
                 redirect('main/compete');
-            
+
             }
-            
 
 
-        
+
+
     }
     else{
         $this->session->set_userdata(array('c_id'=> $id,));
         $this->load->view('submission',array('error' => ' ' ));
-    }  
-    
+    }
+
    }
 
    function logout()
@@ -291,8 +291,8 @@ function profile($name='')
                         }
                     else{
                         $data['following']= FALSE;
-                    } 
-    $data['post'] = $this->user_model->get_userpost($id1);                  
+                    }
+    $data['post'] = $this->user_model->get_userpost($id1);
     $this->load->view('profile',$data);
 }
 else
@@ -305,9 +305,9 @@ else
 function profile_pic()
 {
     if($this->input->post('submit'))
-    {  
-        
-        
+    {
+
+
 
             $file_name = $this->session->userdata('user_id');
 
@@ -319,7 +319,7 @@ function profile_pic()
                   'max_height'      => "4096",
                   'max_width'       => "4096" ,
                   'file_name'       =>  $file_name
-                  );  
+                  );
 
             $this->load->library('upload', $config);
             if($this->upload->do_upload())
@@ -367,16 +367,16 @@ function profile_pic()
             else
             {
                 $error = array('error' => $this->upload->display_errors());
-                
+
                 $this->load->view('profile_pic', $error);
-            }  
+            }
 
 
         }
-    
+
     else{
         $this->load->view('profile_pic',array('error' => ' ' ));
-    }  
+    }
 }
 function follow($id)
 {
@@ -385,21 +385,21 @@ function follow($id)
         $name= $this->user_model->get_uname($id);
         redirect('main/profile/'.$name['uname']);
 
-    
+
 }
 function unfollow($id)
 {
     $this->user_model->unfollow($id);
         $name= $this->user_model->get_uname($id);
         redirect('main/profile/'.$name['uname']);
-    
+
 }
 
 
 public function post_upload(){
 
     if($this->input->post('submit'))
-    {  
+    {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('post_title', 'title',  'required');
         if($this->form_validation->run()== FALSE)
@@ -419,7 +419,7 @@ public function post_upload(){
                   'max_height'      => "4096",
                   'max_width'       => "4096" ,
                   'file_name'       =>  $file_name
-                  );  
+                  );
 
             $this->load->library('upload', $config);
             if($this->upload->do_upload())
@@ -469,17 +469,19 @@ public function post_upload(){
                 $error = array('error' => $this->upload->display_errors());
                 $this->user_model->delete_post($file_name);
                 $this->load->view('post_upload', $error);
-            }  
+            }
 
 
         }
     }
     else{
         $this->load->view('post_upload',array('error' => ' ' ));
-    }  
+    }
 }
 
-
+public function index() {
+  $this->load->view('main');
+}
 
 
 }

@@ -8,15 +8,15 @@
     <title>Home | TopDesignr</title>
     <link href="<?php echo base_url();?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>/css/animate.min.css" rel="stylesheet"> 
-    <link href="<?php echo base_url();?>/css/lightbox.css" rel="stylesheet"> 
+    <link href="<?php echo base_url();?>/css/animate.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>/css/lightbox.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>/css/main.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>/css/responsive.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="<?php echo base_url();?>/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url();?>/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url();?>/images/ico/apple-touch-icon-114-precomposed.png">
@@ -25,8 +25,7 @@
 </head><!--/head-->
 
 <body>
-	<header id="header">      
-
+	<header id="header">     
         <div class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
@@ -40,16 +39,16 @@
                     <a class="navbar-brand" href="<?php echo site_url('main/home') ?>">
                     	<h1><img src="<?php echo base_url();?>/images/logo.png" alt="logo"></h1>
                     </a>
-                    
+
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="<?php echo site_url('main/home') ?>">Home</a></li>                 
+                        <li class="active"><a href="<?php echo site_url('main/home') ?>">Home</a></li>
                         <li><a href="<?php echo site_url('main/explore') ?>">Explore</a>
                         </li>
                         <li><a href="<?php echo site_url('main/compete') ?>">Compete</a>
-                        </li>                         
-                       <!-- <li><a href="shortcodes.html ">Shortcodes</a></li> -->                   
+                        </li>
+                       <!-- <li><a href="shortcodes.html ">Shortcodes</a></li> -->
                     </ul>
                 </div>
                 <div class="search">
@@ -133,7 +132,7 @@
                         </div>
                         <div class="col-sm-5 text-center wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="tour-button">
-                                
+
                              </div>
                         </div>
                     </div>
@@ -216,12 +215,12 @@
     <footer id="footer">
         <div class="container">
             <div class="row">
-                
-               
+
+
                 <div class="col-sm-12 text-center bottom-separator">
                     <img src="<?php echo base_url();?>/images/home/under.png" class="img-responsive inline" alt="">
                 </div>
-                   
+
       <div class="collapse navbar-collapse copyright-text">
                     <ul class="nav navbar-nav navbar-center">
                         <li class="active"><a href="index.html">About Us</a></li>
@@ -237,10 +236,10 @@
                             <li><a href=""><i class="fa fa-dribbble"></i></a></li>
                             <li><a href=""><i class="fa fa-linkedin"></i></a></li>
                         </ul>
-                    </div> 
+                    </div>
                 </div>
           </div>
-                </div> 
+                </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">
                         <p>&copy; TopDesignr 2016. All Rights Reserved.</p>
@@ -255,6 +254,6 @@
     <script type="text/javascript" src="<?php echo base_url();?>/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>/js/lightbox.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>/js/wow.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>/js/main.js"></script>   
+    <script type="text/javascript" src="<?php echo base_url();?>/js/main.js"></script>
 </body>
 </html>
