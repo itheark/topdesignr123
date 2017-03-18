@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 
-mysql://bead858ad885b7:240a0b9f@us-cdbr-iron-east-03.cleardb.net/heroku_858d2319ac6bf07?reconnect=true
+
 
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
