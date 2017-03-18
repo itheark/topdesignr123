@@ -73,12 +73,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+
+mysql://bead858ad885b7:240a0b9f@us-cdbr-iron-east-03.cleardb.net/heroku_858d2319ac6bf07?reconnect=true
+
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => env('DB_HOST', 'us-cdbr-iron-east-03.cleardb.net'),
-	'username' => env('DB_USERNAME', 'bead858ad885b7'),
-	'password' => env('DB_PASSWORD', '240a0b9f'),
-	'database' => env('DB_DATABASE', 'heroku_f7469a0c6b39995'),
+	'hostname' => trim($url['host']),
+	'username' => trim($url['user']),
+	'password' => trim($url['pass']),
+	'database' => trim($url['path'], '/'),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
